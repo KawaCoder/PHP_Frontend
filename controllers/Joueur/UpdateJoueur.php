@@ -1,14 +1,13 @@
 <?php
 namespace App\Controllers\Joueur;
 
-use App\Models\Joueur\Joueur;
-use App\Models\Joueur\JoueurDAO;
 use Exception;
 use DateTime;
 
 class UpdateJoueur
 {
-    private Joueur $joueur;
+    private array $data;
+    private $id_joueur;
 
     public function __construct(
         $id_joueur,
@@ -53,24 +52,47 @@ class UpdateJoueur
             throw new Exception('Le poids doit être compris entre 0 et 200 kg.');
         }
 
-        // Création de l'objet Joueur
-        $joueur = new Joueur();
-        $joueur->setIdJoueur($id_joueur);
-        $joueur->setNomJoueur($nom_joueur);
-        $joueur->setPrenomJoueur($prenom_joueur);
-        $joueur->setNumeroLicence($numero_licence);
-        $joueur->setDateNaiss($date_naiss);
-        $joueur->setTaille($taille);
-        $joueur->setPoids($poids);
-        $joueur->setStatutJoueur($statut_joueur);
-        $joueur->setCommentaire($commentaire);
-
-        $this->joueur = $joueur;
+        $this->id_joueur = $id_joueur;
+        $this->data = [
+            'id_joueur' => $id_joueur,
+            'nom_joueur' => $nom_joueur,
+            'prenom_joueur' => $prenom_joueur,
+            'numero_licence' => $numero_licence,
+            'date_naiss' => $date_naiss,
+            'taille' => $taille,
+            'poids' => $poids,
+            'statut_joueur' => $statut_joueur,
+            'commentaire' => $commentaire
+        ];
     }
 
     public function execute()
     {
-        $dao = new JoueurDAO();
-        return $dao->update($this->joueur);
+        // Appel API backend
+        $url = 'http://localhost:8000/api/joueurs/' . $this->id_joueur;
+
+        $options = [
+            'http' => [
+                'header' => "Content-Type: application/json\r\n",
+                'method' => 'PUT', // On utilise PUT pour la mise à jour
+                'content' => json_encode($this->data),
+                'ignore_errors' => true
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+
+        if ($result === FALSE) {
+            throw new Exception("Erreur critique : Impossible de contacter l'API backend.");
+        }
+
+        $response = json_decode($result, true);
+
+        if (isset($response['error'])) {
+            throw new Exception("Erreur API : " . $response['error']);
+        }
+
+        return $response;
     }
 }

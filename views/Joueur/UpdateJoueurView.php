@@ -76,102 +76,109 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Modifier Joueur - <?= htmlspecialchars($joueur->getNomComplet()) ?></title>
+    <title>Modifier Joueur - <?= htmlspecialchars($joueur['prenom_joueur'] . ' ' . $joueur['nom_joueur']) ?></title>
     <link rel="stylesheet" href="/public/css/main.css">
 </head>
+
 <body>
-<?php require_once __DIR__ . '/../../../header.php'; ?>
-<div class="container">
+    <?php require_once __DIR__ . '/../../../header.php'; ?>
+    <div class="container">
 
-    <div style="margin-bottom: 2rem;">
-        <a href="JoueurView.php"><button class="button button-secondary">← Retour à la liste</button></a>
+        <div style="margin-bottom: 2rem;">
+            <a href="JoueurView.php"><button class="button button-secondary">← Retour à la liste</button></a>
+        </div>
+
+        <div class="card">
+            <h2 class="title-main">Dossier :
+                <?= htmlspecialchars($joueur['prenom_joueur'] . ' ' . $joueur['nom_joueur']) ?></h2>
+
+            <?php if ($success): ?>
+                <div class="team-status team-status-ok"><?= htmlspecialchars($success) ?></div>
+            <?php endif; ?>
+
+            <?php if ($error): ?>
+                <div class="team-status team-status-warning"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+
+            <!-- Formulaire de modification -->
+            <form method="POST">
+                <input type="hidden" name="action" value="update_joueur">
+
+                <div class="form-row">
+                    <div class="form-group" style="flex:1">
+                        <label class="form-label">Nom</label>
+                        <input type="text" name="nom_joueur" class="form-input"
+                            value="<?= htmlspecialchars($joueur['nom_joueur']) ?>" required>
+                    </div>
+                    <div class="form-group" style="flex:1">
+                        <label class="form-label">Prénom</label>
+                        <input type="text" name="prenom_joueur" class="form-input"
+                            value="<?= htmlspecialchars($joueur['prenom_joueur']) ?>" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">N° Licence</label>
+                    <input type="text" name="numero_licence" class="form-input"
+                        value="<?= htmlspecialchars($joueur['numero_licence']) ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date de Naissance</label>
+                    <input type="date" name="date_naiss" class="form-input"
+                        value="<?= htmlspecialchars($joueur['date_naiss'] ?? '') ?>">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex:1">
+                        <label class="form-label">Taille (cm)</label>
+                        <input type="number" name="taille" class="form-input" step="0.01"
+                            value="<?= htmlspecialchars($joueur['taille'] ?? '') ?>">
+                    </div>
+                    <div class="form-group" style="flex:1">
+                        <label class="form-label">Poids (kg)</label>
+                        <input type="number" name="poids" class="form-input" step="0.01"
+                            value="<?= htmlspecialchars($joueur['poids'] ?? '') ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Statut</label>
+                    <select name="statut_joueur" class="form-select">
+                        <?php
+                        $statuts = ['ACTIF', 'BLESSE', 'SUSPENDU', 'ABSENT'];
+                        $current = strtoupper($joueur['statut_joueur']);
+                        foreach ($statuts as $s): ?>
+                            <option value="<?= $s ?>" <?= $current === $s ? 'selected' : '' ?>><?= $s ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Commentaire</label>
+                    <textarea name="commentaire_general" class="form-textarea"
+                        rows="4"><?= htmlspecialchars($joueur['commentaire'] ?? '') ?></textarea>
+                </div><br>
+
+                <button type="submit" class="button button-primary" style="width: 100%;">Mettre à jour les
+                    infos</button>
+            </form>
+
+            <!-- Formulaire de suppression -->
+            <form method="POST" style="margin-top: 1rem;">
+                <input type="hidden" name="action" value="delete_joueur">
+                <button type="submit" class="button button-secondary"
+                    style="width: 100%; border-color: #ef4444; color: #ef4444;">
+                    Supprimer le joueur
+                </button>
+            </form>
+
+        </div>
+
     </div>
-
-    <div class="card">
-        <h2 class="title-main">Dossier : <?= htmlspecialchars($joueur->getNomComplet()) ?></h2>
-
-        <?php if ($success): ?>
-            <div class="team-status team-status-ok"><?= htmlspecialchars($success) ?></div>
-        <?php endif; ?>
-
-        <?php if ($error): ?>
-            <div class="team-status team-status-warning"><?= htmlspecialchars($error) ?></div>
-        <?php endif; ?>
-
-        <!-- Formulaire de modification -->
-        <form method="POST">
-            <input type="hidden" name="action" value="update_joueur">
-
-            <div class="form-row">
-                <div class="form-group" style="flex:1">
-                    <label class="form-label">Nom</label>
-                    <input type="text" name="nom_joueur" class="form-input"
-                           value="<?= htmlspecialchars($joueur->getNomJoueur()) ?>" required>
-                </div>
-                <div class="form-group" style="flex:1">
-                    <label class="form-label">Prénom</label>
-                    <input type="text" name="prenom_joueur" class="form-input"
-                           value="<?= htmlspecialchars($joueur->getPrenomJoueur()) ?>" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">N° Licence</label>
-                <input type="text" name="numero_licence" class="form-input"
-                       value="<?= htmlspecialchars($joueur->getNumeroLicence()) ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Date de Naissance</label>
-                <input type="date" name="date_naiss" class="form-input"
-                       value="<?= htmlspecialchars($joueur->getDateNaiss() ?? '') ?>">
-            </div>
-
-            <div class="form-row">
-                <div class="form-group" style="flex:1">
-                    <label class="form-label">Taille (cm)</label>
-                    <input type="number" name="taille" class="form-input" step="0.01"
-                           value="<?= htmlspecialchars($joueur->getTaille() ?? '') ?>">
-                </div>
-                <div class="form-group" style="flex:1">
-                    <label class="form-label">Poids (kg)</label>
-                    <input type="number" name="poids" class="form-input" step="0.01"
-                           value="<?= htmlspecialchars($joueur->getPoids() ?? '') ?>">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Statut</label>
-                <select name="statut_joueur" class="form-select">
-                    <?php
-                    $statuts = ['ACTIF', 'BLESSE', 'SUSPENDU', 'ABSENT'];
-                    $current = strtoupper($joueur->getStatutJoueur());
-                    foreach ($statuts as $s): ?>
-                        <option value="<?= $s ?>" <?= $current === $s ? 'selected' : '' ?>><?= $s ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Commentaire</label>
-                <textarea name="commentaire_general" class="form-textarea" rows="4"><?= htmlspecialchars($joueur->getCommentaire() ?? '') ?></textarea>
-            </div><br>
-
-            <button type="submit" class="button button-primary" style="width: 100%;">Mettre à jour les infos</button>
-        </form>
-
-        <!-- Formulaire de suppression -->
-        <form method="POST" style="margin-top: 1rem;">
-            <input type="hidden" name="action" value="delete_joueur">
-            <button type="submit" class="button button-secondary" style="width: 100%; border-color: #ef4444; color: #ef4444;">
-                Supprimer le joueur
-            </button>
-        </form>
-
-    </div>
-
-</div>
 </body>
+
 </html>
