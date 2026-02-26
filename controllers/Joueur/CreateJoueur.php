@@ -1,14 +1,12 @@
 <?php
 namespace App\Controllers\Joueur;
 
-use App\Models\Joueur\Joueur;
-use App\Models\Joueur\JoueurDAO;
 use Exception;
 use DateTime;
 
 class CreateJoueur
 {
-    private Joueur $joueur;
+    private array $data;
 
     public function __construct(
         $nom_joueur,
@@ -25,7 +23,6 @@ class CreateJoueur
             throw new Exception('Nom, Prénom et Licence sont obligatoires.');
         }
 
-        // ... (rest of validations)
         // Validation DATE DE NAISSANCE
         if ($date_naiss) {
             $d = DateTime::createFromFormat('Y-m-d', $date_naiss);
@@ -49,23 +46,47 @@ class CreateJoueur
             throw new Exception('Le poids doit être compris entre 0 et 200 kg.');
         }
 
-        // Création de l'objet Joueur
-        $joueur = new Joueur();
-        $joueur->setNomJoueur($nom_joueur);
-        $joueur->setPrenomJoueur($prenom_joueur);
-        $joueur->setNumeroLicence($numero_licence);
-        $joueur->setDateNaiss($date_naiss);
-        $joueur->setTaille($taille);
-        $joueur->setPoids($poids);
-        $joueur->setStatutJoueur($statut_joueur);
-        $joueur->setCommentaire($commentaire);
-
-        $this->joueur = $joueur;
+        // Préparation des données pour l'API
+        $this->data = [
+            'nom_joueur' => $nom_joueur,
+            'prenom_joueur' => $prenom_joueur,
+            'numero_licence' => $numero_licence,
+            'date_naiss' => $date_naiss,
+            'taille' => $taille,
+            'poids' => $poids,
+            'statut_joueur' => $statut_joueur,
+            'commentaire' => $commentaire
+        ];
     }
 
     public function execute()
     {
-        $dao = new JoueurDAO();
-        return $dao->create($this->joueur);
+        // Appel API backend
+        $url = 'http://localhost:8000/api/create_joueur'; // À adapter selon ton URL backend
+
+        $options = [
+            'http' => [
+                'header' => "Content-Type: application/json\r\n",
+                'method' => 'POST',
+                'content' => json_encode($this->data),
+                'ignore_errors' => true
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+
+        if ($result === FALSE) {
+            throw new Exception("Erreur critique : Impossible de contacter l'API backend.");
+        }
+
+        $response = json_decode($result, true);
+
+        // Gestion des erreurs renvoyées par l'API
+        if (isset($response['error'])) {
+            throw new Exception("Erreur API : " . $response['error']);
+        }
+
+        return $response;
     }
 }
