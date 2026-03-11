@@ -13,7 +13,30 @@ class GetMatchById {
     }
 
     public function execute() {
-        return MatchDAO::GetMatchById($this->id_match);
+        $url = 'http://localhost:8000/api/match/' . $this->id_match;
+
+        $options = [
+            'http' => [
+                'method' => 'GET',
+                'header' => "Content-Type: application/json\r\n",
+                'ignore_errors' => true
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+
+        if ($result === FALSE) {
+            throw new Exception("Erreur critique : Impossible de contacter l'API backend.");
+        }
+
+        $response = json_decode($result, true);
+
+        if (isset($response['error'])) {
+            throw new Exception("Erreur API : " . $response['error']);
+        }
+
+        return $response;
     }
 }
 ?>
