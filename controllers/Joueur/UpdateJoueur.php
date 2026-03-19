@@ -69,12 +69,12 @@ class UpdateJoueur
     public function execute()
     {
         // Appel API backend
-        $url = 'http://localhost:8000/api/joueurs/' . $this->id_joueur;
+        $url = 'http://localhost:8000/api/update_joueur'; // À adapter selon ton URL backend
 
         $options = [
             'http' => [
                 'header' => "Content-Type: application/json\r\n",
-                'method' => 'PUT', // On utilise PUT pour la mise à jour
+                'method' => 'POST',
                 'content' => json_encode($this->data),
                 'ignore_errors' => true
             ],

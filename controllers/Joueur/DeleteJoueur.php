@@ -17,12 +17,15 @@ class DeleteJoueur
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/joueurs/' . $this->id;
+        $url = 'http://localhost:8000/api/delete_joueur'; // À adapter selon ton URL backend
+
+        $data = ['id' => $this->id];
 
         $options = [
             'http' => [
-                'method' => 'DELETE',
                 'header' => "Content-Type: application/json\r\n",
+                'method' => 'POST',
+                'content' => json_encode($data),
                 'ignore_errors' => true
             ],
         ];

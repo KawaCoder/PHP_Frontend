@@ -17,12 +17,12 @@ class GetJoueurById
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/joueurs/' . $this->id;
+        $url = 'http://localhost:8000/api/get_joueur_by_id?id=' . urlencode($this->id); // À adapter selon ton URL backend
 
         $options = [
             'http' => [
-                'method' => 'GET',
                 'header' => "Content-Type: application/json\r\n",
+                'method' => 'GET',
                 'ignore_errors' => true
             ],
         ];

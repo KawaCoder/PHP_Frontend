@@ -11,12 +11,12 @@ class ReadJoueur
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/joueurs';
+        $url = 'http://localhost:8000/api/read_joueur'; // À adapter selon ton URL backend
 
         $options = [
             'http' => [
-                'method' => 'GET',
                 'header' => "Content-Type: application/json\r\n",
+                'method' => 'GET',
                 'ignore_errors' => true
             ],
         ];
