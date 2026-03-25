@@ -1,14 +1,11 @@
 <?php
 namespace App\Controllers\Commentaire;
-
-use App\Models\Commentaire\Commentaire;
-use App\Models\Commentaire\CommentaireDAO;
 use Exception;
 use DateTime;
 
 class CreateCommentaire
 {
-    private Commentaire $commentaire;
+    private array $data;
 
     public function __construct($id_joueur, $texte)
     {
@@ -20,17 +17,39 @@ class CreateCommentaire
             throw new Exception("Le contenu du commentaire ne peut pas être vide.");
         }
 
-        $comm = new Commentaire();
-        $comm->setIdJoueur($id_joueur);
-        $comm->setCommentaire($texte);
-        $comm->setDateCommentaire((new DateTime())->format('Y-m-d'));
-
-        $this->commentaire = $comm;
+        $this->data = [
+            'id_joueur' => $id_joueur,
+            'commentaire' => $texte,
+            'date_commentaire' => (new DateTime())->format('Y-m-d')
+        ];
     }
 
     public function execute()
     {
-        $dao = new CommentaireDAO();
-        return $dao->create($this->commentaire);
+        $url = 'http://localhost:8000/api/create_commentaire';
+
+        $options = [
+            'http' => [
+                'header' => "Content-Type: application/json\r\n",
+                'method' => 'POST',
+                'content' => json_encode($this->data),
+                'ignore_errors' => true
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+
+        if ($result === FALSE) {
+            throw new Exception("Erreur critique : Impossible de contacter l'API backend.");
+        }
+
+        $response = json_decode($result, true);
+
+        if (isset($response['error'])) {
+            throw new Exception("Erreur API : " . $response['error']);
+        }
+
+        return $response;
     }
 }
