@@ -1,24 +1,27 @@
 <?php
 namespace App\Controllers\Match;
-use App\Models\Match\Match_;
-use App\Models\Match\MatchDAO;
 use Exception;
 
 class DeleteMatch {
-
-    public string $id_match;
+    private string $id_match;
 
     public function __construct($id_match) {
+        if (!$id_match) {
+            throw new Exception("ID match manquant pour la suppression.");
+        }
         $this->id_match = $id_match;
     }
 
     public function execute() {
-        $url = 'http://localhost:8000/api/match/' . $this->id_match;
+        $url = 'http://localhost:8000/api/delete_match'; // À adapter selon ton URL backend
+
+        $data = ['id_match' => $this->id_match]; // Sending id_match to match property names
 
         $options = [
             'http' => [
-                'method' => 'DELETE',
                 'header' => "Content-Type: application/json\r\n",
+                'method' => 'POST',
+                'content' => json_encode($data),
                 'ignore_errors' => true
             ],
         ];

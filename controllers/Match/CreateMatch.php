@@ -1,12 +1,9 @@
 <?php
 namespace App\Controllers\Match;
-use App\Models\Match\Match_;
-use App\Models\Match\MatchDAO;
 use Exception;
 
 class CreateMatch {
-
-    private Match_ $match;
+    private array $data;
 
     public function __construct(
         $date_match,
@@ -17,7 +14,7 @@ class CreateMatch {
         $domiciliation,
         $sens_match
     ) {
-        $this->match = [
+        $this->data = [
             'date_match' => $date_match,
             'nom_equipe_adverse' => $nom_equipe_adverse,
             'lieu_de_rencontre' => $lieu_de_rencontre,
@@ -29,14 +26,13 @@ class CreateMatch {
     }   
 
     public function execute() {
-        // Appel API backend
         $url = 'http://localhost:8000/api/create_match'; // À adapter selon ton URL backend
 
         $options = [
             'http' => [
                 'header' => "Content-Type: application/json\r\n",
                 'method' => 'POST',
-                'content' => json_encode($this->match),
+                'content' => json_encode($this->data),
                 'ignore_errors' => true
             ],
         ];
@@ -50,7 +46,6 @@ class CreateMatch {
 
         $response = json_decode($result, true);
 
-        // Gestion des erreurs renvoyées par l'API
         if (isset($response['error'])) {
             throw new Exception("Erreur API : " . $response['error']);
         }

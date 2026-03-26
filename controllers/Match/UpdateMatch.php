@@ -1,19 +1,9 @@
 <?php
 namespace App\Controllers\Match;
-use App\Models\Match\Match_;
-use App\Models\Match\MatchDAO;
 use Exception;
 
 class UpdateMatch {
-
-    private $id_match;
-    private $date_match;
-    private $nom_equipe_adverse;
-    private $lieu_de_rencontre;
-    private $points_subis;
-    private $points_marques;
-    private $domiciliation;
-    private $sens_match;
+    private array $data;
 
     public function __construct(
         $id_match,
@@ -25,9 +15,12 @@ class UpdateMatch {
         $domiciliation,
         $sens_match
     ) {
+        if (!$id_match) {
+            throw new Exception("ID match manquant.");
+        }
 
         $this->data = [
-            'id' => $id_match,
+            'id_match' => $id_match,
             'date_match' => $date_match,
             'nom_equipe_adverse' => $nom_equipe_adverse,
             'lieu_de_rencontre' => $lieu_de_rencontre,
@@ -39,12 +32,12 @@ class UpdateMatch {
     }
 
     public function execute() {
-        $url = 'http://localhost:8000/api/match/' . $this->data['id'];
+        $url = 'http://localhost:8000/api/update_match'; // À adapter selon ton URL backend
 
         $options = [
             'http' => [
                 'header' => "Content-Type: application/json\r\n",
-                'method' => 'PUT', // On utilise PUT pour la mise à jour
+                'method' => 'POST',
                 'content' => json_encode($this->data),
                 'ignore_errors' => true
             ],

@@ -1,24 +1,24 @@
 <?php
 namespace App\Controllers\Match;
-use App\Models\Match\Match_;
-use App\Models\Match\MatchDAO;
 use Exception;
 
 class GetMatchById {
-
     private string $id_match;
 
     public function __construct($id_match) {
+        if (!$id_match) {
+            throw new Exception("ID match manquant.");
+        }
         $this->id_match = $id_match;
     }
 
     public function execute() {
-        $url = 'http://localhost:8000/api/match/' . $this->id_match;
+        $url = 'http://localhost:8000/api/get_match_by_id?id_match=' . urlencode($this->id_match); // À adapter selon ton URL backend
 
         $options = [
             'http' => [
-                'method' => 'GET',
                 'header' => "Content-Type: application/json\r\n",
+                'method' => 'GET',
                 'ignore_errors' => true
             ],
         ];
