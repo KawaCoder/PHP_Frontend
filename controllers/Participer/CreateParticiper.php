@@ -2,7 +2,8 @@
 namespace App\Controllers\Participer;
 use Exception;
 
-class CreateParticiper {
+class CreateParticiper
+{
     private array $data;
 
     public function __construct(
@@ -19,9 +20,10 @@ class CreateParticiper {
             'est_titulaire' => $est_titulaire,
             'evaluation' => $evaluation
         ];
-    }   
+    }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/create_participer';
 
         $options = [

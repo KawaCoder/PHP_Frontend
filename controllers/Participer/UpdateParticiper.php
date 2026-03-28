@@ -2,7 +2,8 @@
 namespace App\Controllers\Participer;
 use Exception;
 
-class UpdateParticiper {
+class UpdateParticiper
+{
     private array $data;
 
     public function __construct(
@@ -23,9 +24,10 @@ class UpdateParticiper {
             'est_titulaire' => $est_titulaire,
             'evaluation' => $evaluation
         ];
-    }   
+    }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/update_participer';
 
         $options = [

@@ -2,7 +2,8 @@
 namespace App\Controllers\Match;
 use Exception;
 
-class CreateMatch {
+class CreateMatch
+{
     private array $data;
 
     public function __construct(
@@ -23,9 +24,10 @@ class CreateMatch {
             'domiciliation' => $domiciliation,
             'sens_match' => $sens_match
         ];
-    }   
+    }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/create_match'; // À adapter selon ton URL backend
 
         $options = [

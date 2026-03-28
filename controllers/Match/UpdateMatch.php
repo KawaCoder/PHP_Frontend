@@ -2,7 +2,8 @@
 namespace App\Controllers\Match;
 use Exception;
 
-class UpdateMatch {
+class UpdateMatch
+{
     private array $data;
 
     public function __construct(
@@ -31,7 +32,8 @@ class UpdateMatch {
         ];
     }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/update_match'; // À adapter selon ton URL backend
 
         $options = [

@@ -83,7 +83,7 @@ define('ASSETS_URL', $relativePath . '/public/assets');
  * Exemple : App\Models\CreneauSportif\CreneauSportif
  *           → /app/Models/CreneauSportif/CreneauSportif.php
  */
-require ROOT . '/app/Autoloader.php';
+require ROOT . '/PHP_Frontend/Autoloader.php';
 
 \App\Autoloader::register();
 
@@ -105,7 +105,7 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 
     // Session expirée - déconnexion automatique
     session_unset();
     session_destroy();
-    $loginUrl = BASE_URL . '/app/views/Auth/LoginView.php';
+    $loginUrl = BASE_URL . '/PHP_Frontend/views/Auth/LoginView.php';
     header("Location: $loginUrl");
     exit();
 }
@@ -127,7 +127,7 @@ function isLoggedIn()
 function requireLogin()
 {
     if (!isLoggedIn()) {
-        $loginUrl = BASE_URL . '/app/views/Auth/LoginView.php';
+        $loginUrl = BASE_URL . '/PHP_Frontend/views/Auth/LoginView.php';
         header("Location: $loginUrl");
         exit();
     }

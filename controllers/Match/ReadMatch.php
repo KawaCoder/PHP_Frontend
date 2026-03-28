@@ -2,11 +2,14 @@
 namespace App\Controllers\Match;
 use Exception;
 
-class ReadMatch {
-    public function __construct() {
+class ReadMatch
+{
+    public function __construct()
+    {
     }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/read_match'; // À adapter selon ton URL backend
 
         $options = [

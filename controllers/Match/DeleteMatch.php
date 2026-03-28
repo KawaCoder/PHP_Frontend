@@ -2,17 +2,20 @@
 namespace App\Controllers\Match;
 use Exception;
 
-class DeleteMatch {
+class DeleteMatch
+{
     private string $id_match;
 
-    public function __construct($id_match) {
+    public function __construct($id_match)
+    {
         if (!$id_match) {
             throw new Exception("ID match manquant pour la suppression.");
         }
         $this->id_match = $id_match;
     }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/delete_match'; // À adapter selon ton URL backend
 
         $data = ['id_match' => $this->id_match]; // Sending id_match to match property names

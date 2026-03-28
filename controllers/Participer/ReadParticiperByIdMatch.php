@@ -2,17 +2,20 @@
 namespace App\Controllers\Participer;
 use Exception;
 
-class ReadParticiperByIdMatch {
+class ReadParticiperByIdMatch
+{
     private $id_match;
 
-    public function __construct($id_match) {
+    public function __construct($id_match)
+    {
         if (!$id_match) {
             throw new Exception("ID match manquant.");
         }
         $this->id_match = $id_match;
-    }   
+    }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/read_participer_by_id_match?id_match=' . urlencode($this->id_match);
 
         $options = [

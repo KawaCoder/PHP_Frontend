@@ -21,15 +21,29 @@ class Autoloader
 
         // Remplacer \ par / pour le chemin du fichier
         $path = str_replace('\\', '/', $class);
-        $file = __DIR__ . '/' . $path . '.php';
-
-        if (file_exists($file)) {
-            require $file;
+        
+        // 1. Essayer dans PHP_Frontend en priorité
+        $fileFrontend = __DIR__ . '/' . $path . '.php';
+        if (file_exists($fileFrontend)) {
+            require $fileFrontend;
             return;
         }
 
-        // TENTATIVE DE CORRECTION DE CASSE (Gestion des dossiers minuscules : Config -> config)
-        // Si le fichier n'est pas trouvé, on essaie de mettre le premier dossier en minuscule
+        // 2. Essayer dans PHP_Auth
+        $fileAuth = dirname(__DIR__) . '/PHP_Auth/' . $path . '.php';
+        if (file_exists($fileAuth)) {
+            require $fileAuth;
+            return;
+        }
+
+        // 3. Essayer dans PHP_Backend (si besoin, comme pour les modèles partagés)
+        $fileBackend = dirname(__DIR__) . '/PHP_Backend/' . $path . '.php';
+        if (file_exists($fileBackend)) {
+            require $fileBackend;
+            return;
+        }
+
+        // TENTATIVE DE CORRECTION DE CASSE pour PHP_Frontend
         $parts = explode('/', $path);
         if (count($parts) > 0) {
             $parts[0] = strtolower($parts[0]);

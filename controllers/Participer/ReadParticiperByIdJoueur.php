@@ -2,17 +2,20 @@
 namespace App\Controllers\Participer;
 use Exception;
 
-class ReadParticiperByIdJoueur {
+class ReadParticiperByIdJoueur
+{
     private $id_joueur;
 
-    public function __construct($id_joueur) {
+    public function __construct($id_joueur)
+    {
         if (!$id_joueur) {
             throw new Exception("ID joueur manquant.");
         }
         $this->id_joueur = $id_joueur;
-    }   
+    }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/read_participer_by_id_joueur?id_joueur=' . urlencode($this->id_joueur);
 
         $options = [

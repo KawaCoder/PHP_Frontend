@@ -2,19 +2,22 @@
 namespace App\Controllers\Participer;
 use Exception;
 
-class GetParticiperByIds {
+class GetParticiperByIds
+{
     private $id_joueur;
     private $id_match;
 
-    public function __construct($id_joueur, $id_match) {
+    public function __construct($id_joueur, $id_match)
+    {
         if (!$id_joueur || !$id_match) {
             throw new Exception("ID joueur ou ID match manquant.");
         }
         $this->id_joueur = $id_joueur;
         $this->id_match = $id_match;
-    }   
+    }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/get_participer_by_ids?id_joueur=' . urlencode($this->id_joueur) . '&id_match=' . urlencode($this->id_match);
 
         $options = [

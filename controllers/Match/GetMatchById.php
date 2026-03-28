@@ -2,17 +2,20 @@
 namespace App\Controllers\Match;
 use Exception;
 
-class GetMatchById {
+class GetMatchById
+{
     private string $id_match;
 
-    public function __construct($id_match) {
+    public function __construct($id_match)
+    {
         if (!$id_match) {
             throw new Exception("ID match manquant.");
         }
         $this->id_match = $id_match;
     }
 
-    public function execute() {
+    public function execute()
+    {
         $url = 'http://localhost:8000/api/get_match_by_id?id_match=' . urlencode($this->id_match); // À adapter selon ton URL backend
 
         $options = [

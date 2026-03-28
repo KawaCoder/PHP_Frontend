@@ -74,6 +74,8 @@ class CreateJoueur
         ];
 
         $context = stream_context_create($options);
+
+        //utiliser curl(surtout pour le backend)
         $result = file_get_contents($url, false, $context);
 
         if ($result === FALSE) {
