@@ -18,9 +18,10 @@ class GetCommentairesByJoueur
     {
         $url = 'http://localhost:8000/api/get_commentaires_by_joueur?id_joueur=' . urlencode($this->id_joueur);
 
+        $token = $_SESSION['jwt_token'] ?? '';
         $options = [
             'http' => [
-                'header' => "Content-Type: application/json\r\n",
+                'header' => "Content-Type: application/json\r\nAuthorization: Bearer " . $token . "\r\n",
                 'method' => 'GET',
                 'ignore_errors' => true
             ],

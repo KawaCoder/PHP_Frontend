@@ -30,9 +30,10 @@ class CreateMatch
     {
         $url = 'http://localhost:8000/api/create_match'; // À adapter selon ton URL backend
 
+        $token = $_SESSION['jwt_token'] ?? '';
         $options = [
             'http' => [
-                'header' => "Content-Type: application/json\r\n",
+                'header' => "Content-Type: application/json\r\nAuthorization: Bearer " . $token . "\r\n",
                 'method' => 'POST',
                 'content' => json_encode($this->data),
                 'ignore_errors' => true

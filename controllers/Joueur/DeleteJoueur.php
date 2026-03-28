@@ -21,9 +21,10 @@ class DeleteJoueur
 
         $data = ['id' => $this->id];
 
+        $token = $_SESSION['jwt_token'] ?? '';
         $options = [
             'http' => [
-                'header' => "Content-Type: application/json\r\n",
+                'header' => "Content-Type: application/json\r\nAuthorization: Bearer " . $token . "\r\n",
                 'method' => 'POST',
                 'content' => json_encode($data),
                 'ignore_errors' => true

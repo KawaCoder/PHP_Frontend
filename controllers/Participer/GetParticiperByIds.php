@@ -20,9 +20,10 @@ class GetParticiperByIds
     {
         $url = 'http://localhost:8000/api/get_participer_by_ids?id_joueur=' . urlencode($this->id_joueur) . '&id_match=' . urlencode($this->id_match);
 
+        $token = $_SESSION['jwt_token'] ?? '';
         $options = [
             'http' => [
-                'header' => "Content-Type: application/json\r\n",
+                'header' => "Content-Type: application/json\r\nAuthorization: Bearer " . $token . "\r\n",
                 'method' => 'GET',
                 'ignore_errors' => true
             ],

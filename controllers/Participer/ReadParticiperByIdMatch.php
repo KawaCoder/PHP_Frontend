@@ -18,9 +18,10 @@ class ReadParticiperByIdMatch
     {
         $url = 'http://localhost:8000/api/read_participer_by_id_match?id_match=' . urlencode($this->id_match);
 
+        $token = $_SESSION['jwt_token'] ?? '';
         $options = [
             'http' => [
-                'header' => "Content-Type: application/json\r\n",
+                'header' => "Content-Type: application/json\r\nAuthorization: Bearer " . $token . "\r\n",
                 'method' => 'GET',
                 'ignore_errors' => true
             ],
