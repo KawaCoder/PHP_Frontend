@@ -17,7 +17,7 @@ class GetJoueurById
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/get_joueur_by_id?id=' . urlencode($this->id); // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/get_joueur_by_id?id=' . urlencode($this->id); // À adapter selon ton URL backend
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [

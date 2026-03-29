@@ -34,7 +34,7 @@ class UpdateMatch
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/update_match'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/update_match'; // À adapter selon ton URL backend
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [

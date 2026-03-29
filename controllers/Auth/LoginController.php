@@ -16,7 +16,7 @@ class LoginController
 
     public function execute()
     {
-        $url = 'http://localhost:8001'; // URL de l'API Auth
+        $url = API_AUTH_URL; // URL de l'API Auth
         
         $data = [
             'username' => $this->username,

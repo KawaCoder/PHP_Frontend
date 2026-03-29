@@ -117,7 +117,7 @@ function countTitulairesActifs(int $idMatch): int
                         <td><?= $match->getPoints_marques() ?? '-' ?> - <?= $match->getPoints_subis() ?? '-' ?></td>
 
                         <td class="actions">
-                            <a href="/app/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $match->getId_Match() ?>">
+                            <a href="/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $match->getId_Match() ?>">
                                 <button class="button button-secondary">Joueurs</button></a>
                             <a href="UpdateMatchView.php?id_match=<?= $match->getId_Match() ?>">
                                 <button class="button button-secondary">Modifier</button></a>
@@ -182,7 +182,7 @@ function countTitulairesActifs(int $idMatch): int
                         <td><?= $match->getPoints_marques() ?? '-' ?> - <?= $match->getPoints_subis() ?? '-' ?></td>
 
                         <td class="actions">
-                            <a href="/app/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $match->getId_Match() ?>">
+                            <a href="/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $match->getId_Match() ?>">
                                 <button class="button button-secondary">Joueurs</button></a>
                             <a href="UpdateMatchView.php?id_match=<?= $match->getId_Match() ?>">
                                 <button class="button button-secondary">Modifier</button></a>

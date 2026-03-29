@@ -28,7 +28,7 @@ class UpdateParticiper
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/update_participer';
+        $url = API_BACKEND_URL . '/update_participer';
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [

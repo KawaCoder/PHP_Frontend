@@ -62,7 +62,7 @@ class CreateJoueur
     public function execute()
     {
         // Appel API backend
-        $url = 'http://localhost:8000/api/create_joueur'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/create_joueur'; // À adapter selon ton URL backend
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [

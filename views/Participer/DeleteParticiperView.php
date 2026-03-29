@@ -10,7 +10,7 @@ use App\Enums\Poste;
 requireLogin();
 
 if (!isset($_GET['id_match'], $_GET['id_joueur'])) {
-    header('Location: /app/views/Match/ReadMatchView.php');
+    header('Location: /views/Match/ReadMatchView.php');
     exit();
 }
 
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="button button-primary">
                     Confirmer la suppression
                 </button>
-                <a href="/app/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $id_match ?>">
+                <a href="/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $id_match ?>">
                     <button class="button button-secondary">
                         Annuler
                     </button>

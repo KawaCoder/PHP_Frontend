@@ -69,7 +69,7 @@ class UpdateJoueur
     public function execute()
     {
         // Appel API backend
-        $url = 'http://localhost:8000/api/update_joueur'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/update_joueur'; // À adapter selon ton URL backend
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [

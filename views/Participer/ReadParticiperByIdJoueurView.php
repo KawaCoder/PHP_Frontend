@@ -13,7 +13,7 @@ requireLogin();
 
 $id_joueur = $_GET['id_joueur'] ?? null;
 if (!$id_joueur) {
-    header('Location: /app/views/Joueur/JoueurView.php');
+    header('Location: /views/Joueur/JoueurView.php');
     exit();
 }
 
@@ -55,7 +55,7 @@ foreach ($participations as $p) {
         <div class="title-divider"></div>
 
         <div style="margin-bottom: 2rem;">
-            <a href="/app/views/Joueur/JoueurView.php"><button class="button button-secondary">← Retour à la liste</button></a>
+            <a href="/views/Joueur/JoueurView.php"><button class="button button-secondary">← Retour à la liste</button></a>
         </div>
 
         <!-- MATCHS FUTURS -->
@@ -93,12 +93,12 @@ foreach ($participations as $p) {
                             <?php endif; ?>
                         </td>
                         <td class="actions">
-                            <a href="/app/views/Participer/UpdateParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
+                            <a href="/views/Participer/UpdateParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
                                 <button class="button button-secondary">
                                     Modifier
                                 </button>
                             </a>
-                            <a href="/app/views/Participer/DeleteParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
+                            <a href="/views/Participer/DeleteParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
                                 <button class="button button-secondary">
                                     Supprimer
                                 </button>
@@ -138,12 +138,12 @@ foreach ($participations as $p) {
                         <td><?= htmlspecialchars($p->getPoste()) ?></td>
                         <td><?= $p->getEvaluation() ?: '—' ?></td>
                         <td class="actions">
-                            <a href="/app/views/Participer/UpdateParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
+                            <a href="/views/Participer/UpdateParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
                                 <button class="button button-secondary">
                                     Modifier
                                 </button>
                             </a>
-                            <a href="/app/views/Participer/DeleteParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
+                            <a href="/views/Participer/DeleteParticiperView.php?id_match=<?= $match->getId_Match() ?>&id_joueur=<?= $p->getId_Joueur() ?>">
                                 <button class="button button-secondary">
                                     Supprimer
                                 </button>

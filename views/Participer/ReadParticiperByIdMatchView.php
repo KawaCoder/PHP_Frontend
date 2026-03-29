@@ -109,13 +109,13 @@ $nbRemplacants = count($remplacants);
                         </div>
 
                         <div class="button-group margin-top-small">
-                            <a href="/app/views/Participer/UpdateParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
+                            <a href="/views/Participer/UpdateParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
                                 <button class="button button-primary">Modifier</button>
                             </a>
                         </div>
 
                         <div class="button-group margin-top-small">
-                            <a href="/app/views/Participer/DeleteParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
+                            <a href="/views/Participer/DeleteParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
                                 <button class="button button-secondary">Supprimer</button>
                             </a>
                         </div>
@@ -160,13 +160,13 @@ $nbRemplacants = count($remplacants);
                         </div>
 
                         <div class="button-group margin-top-small">
-                            <a href="/app/views/Participer/UpdateParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
+                            <a href="/views/Participer/UpdateParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
                                 <button class="button button-primary">Modifier</button>
                             </a>
                         </div>
 
                         <div class="button-group margin-top-small">
-                            <a href="/app/views/Participer/DeleteParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
+                            <a href="/views/Participer/DeleteParticiperView.php?id_match=<?= $id_match ?>&id_joueur=<?= $participant->getId_Joueur() ?>">
                                 <button class="button button-secondary">Supprimer</button>
                             </a>
                         </div>
@@ -180,11 +180,11 @@ $nbRemplacants = count($remplacants);
 
         <!-- ACTIONS GLOBALES -->
         <div class="button-group margin-top-large">
-            <a href="/app/views/Participer/CreateParticiperView.php?id_match=<?= $id_match ?>">
+            <a href="/views/Participer/CreateParticiperView.php?id_match=<?= $id_match ?>">
                 <button class="button button-primary">Ajouter un joueur</button>
             </a>
 
-            <a href="/app/views/Match/ReadMatchView.php">
+            <a href="/views/Match/ReadMatchView.php">
                 <button class="button button-secondary">Retour</button>
             </a>
         </div>

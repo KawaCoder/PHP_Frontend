@@ -18,7 +18,7 @@ class GetParticiperByIds
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/get_participer_by_ids?id_joueur=' . urlencode($this->id_joueur) . '&id_match=' . urlencode($this->id_match);
+        $url = API_BACKEND_URL . '/get_participer_by_ids?id_joueur=' . urlencode($this->id_joueur) . '&id_match=' . urlencode($this->id_match);
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [

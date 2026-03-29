@@ -132,7 +132,7 @@ $showForm = isset($_GET['show_form']) && $_GET['show_form'] === '1';
                                         </button>
                                     </a>
                                     <a
-                                        href="/app/views/participer/ReadParticiperByIdJoueurView.php?id_joueur=<?= $joueur['id_joueur'] ?>">
+                                        href="/views/participer/ReadParticiperByIdJoueurView.php?id_joueur=<?= $joueur['id_joueur'] ?>">
                                         <button class="button button-secondary">
                                             Matchs
                                         </button>

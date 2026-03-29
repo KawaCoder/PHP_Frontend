@@ -42,7 +42,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'supprimer') {
                 Oui, supprimer
             </button>
 
-            <a href="/app/views/match/ReadMatchView.php" class="button button-secondary">
+            <a href="/views/match/ReadMatchView.php" class="button button-secondary">
                 Annuler
             </a>
         </form>

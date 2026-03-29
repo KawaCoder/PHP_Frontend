@@ -13,7 +13,7 @@ use App\Enums\Poste;
 requireLogin();
 
 if (!isset($_GET['id_match'])) {
-    header('Location: /app/views/Match/ReadMatchView.php');
+    header('Location: /views/Match/ReadMatchView.php');
     exit();
 }
 
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Ajouter au match
                 </button>
 
-                <a href="/app/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $id_match ?>" class="button button-secondary">
+                <a href="/views/Participer/ReadParticiperByIdMatchView.php?id_match=<?= $id_match ?>" class="button button-secondary">
                     Retour
                 </a>
             </div>

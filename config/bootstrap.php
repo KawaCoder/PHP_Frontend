@@ -7,6 +7,11 @@
  */
 
 // ========================================
+// 0. CHARGEMENT DES VARIABLES D'ENVIRONNEMENT (URLs)
+// ========================================
+require_once __DIR__ . '/env.php';
+
+// ========================================
 // 1. CONSTANTE ROOT (Chemin absolu serveur)
 // ========================================
 date_default_timezone_set('Europe/Paris');
@@ -17,73 +22,32 @@ date_default_timezone_set('Europe/Paris');
  * Exemple : /var/www/kast-asso/ ou C:/projets/kast-asso/
  * 
  * dirname(dirname(__DIR__)) remonte de 2 niveaux :
- * - __DIR__ = /chemin/vers/kast-asso/app/config/
- * - dirname(__DIR__) = /chemin/vers/kast-asso/app/
- * - dirname(dirname(__DIR__)) = /chemin/vers/kast-asso/
- * 
- * Utilisé pour : Inclusions PHP, autoloader, accès aux fichiers système
+/**
+ * ROOT : Chemin absolu vers la racine de l'application (Frontend)
+ * __DIR__ = /var/www/config
+ * dirname(__DIR__) = /var/www
  */
-define('ROOT', dirname(dirname(__DIR__)));
+define('ROOT', dirname(__DIR__));
 
 // ========================================
 // 2. CONSTANTES BASE_URL et ASSETS_URL (Chemins web)
 // ========================================
 
-/**
- * Calcul automatique du chemin web du projet dans l'URL
- * 
- * Problème à résoudre :
- * - Si DocumentRoot pointe vers le dossier parent : BASE_URL = "/kast-asso"
- * - Si DocumentRoot pointe vers le projet lui-même : BASE_URL = ""
- * 
- * Solution :
- * On compare DocumentRoot (racine web du serveur) avec ROOT (racine du projet)
- * pour déduire le préfixe à ajouter dans les URLs.
- * 
- * Exemple 1 (projet dans un sous-dossier) :
- * DocumentRoot : /var/www/
- * ROOT :         /var/www/kast-asso/
- * Résultat :     BASE_URL = "/kast-asso"
- * 
- * Exemple 2 (projet à la racine) :
- * DocumentRoot : /var/www/kast-asso/
- * ROOT :         /var/www/kast-asso/
- * Résultat :     BASE_URL = "" (vide)
- */
 $documentRoot = realpath($_SERVER['DOCUMENT_ROOT']);
 $projectRoot = realpath(ROOT);
 
 // Soustraction des chemins pour obtenir le chemin relatif web
 $relativePath = str_replace($documentRoot, '', $projectRoot);
-
-// Normalisation des séparateurs (Windows utilise \, Linux/Mac utilisent /)
 $relativePath = str_replace('\\', '/', $relativePath);
 
-/**
- * BASE_URL : Préfixe pour tous les liens internes du projet (vues PHP, redirections)
- * Utilisé dans : <a href="">, header("Location: "), <form action="">
- */
-define('BASE_URL', $relativePath);
-
-/**
- * ASSETS_URL : Préfixe pour tous les fichiers statiques (CSS, JS, images, fonts)
- * Utilisé dans : <link>, <script>, <img>, background-image
- */
-define('ASSETS_URL', $relativePath . '/public/assets');
+define('BASE_URL', rtrim($relativePath, '/'));
+define('ASSETS_URL', BASE_URL . '/public/assets');
 
 // ========================================
 // 3. CHARGEMENT DE L'AUTOLOADER PSR-4
 // ========================================
 
-/**
- * L'autoloader permet de charger automatiquement les classes PHP
- * sans avoir besoin de faire require/include manuellement.
- * 
- * Convention : Les namespaces correspondent à l'arborescence des dossiers
- * Exemple : App\Models\CreneauSportif\CreneauSportif
- *           → /app/Models/CreneauSportif/CreneauSportif.php
- */
-require ROOT . '/PHP_Frontend/Autoloader.php';
+require ROOT . '/Autoloader.php';
 
 \App\Autoloader::register();
 
@@ -127,7 +91,7 @@ function isLoggedIn()
 function requireLogin()
 {
     if (!isLoggedIn()) {
-        $loginUrl = BASE_URL . '/PHP_Frontend/views/Auth/LoginView.php';
+        $loginUrl = BASE_URL . '/views/Auth/LoginView.php';
         header("Location: $loginUrl");
         exit();
     }

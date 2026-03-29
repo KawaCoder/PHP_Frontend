@@ -10,7 +10,7 @@ class ReadMatch
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/read_match'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/read_match'; // À adapter selon ton URL backend
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [

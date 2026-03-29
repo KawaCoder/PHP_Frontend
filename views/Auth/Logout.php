@@ -6,5 +6,5 @@ use App\Controllers\Auth\LogoutController;
 $controller = new LogoutController();
 $controller->execute();
 
-header('Location: /app/views/Auth/LoginView.php');
+header('Location: /views/Auth/LoginView.php');
 exit();

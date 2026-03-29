@@ -22,7 +22,7 @@ class DeleteParticiper
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/delete_participer';
+        $url = API_BACKEND_URL . '/delete_participer';
 
         $token = $_SESSION['jwt_token'] ?? '';
         $options = [
