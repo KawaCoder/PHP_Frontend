@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-<?php require_once __DIR__ . '/../../../header.php'; ?>
+<?php require_once ROOT . '/header.php'; ?>
     <nav style="background: #1e293b; color: white; padding: 1rem 2rem; margin-bottom: 2rem;">
         <div
             style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">

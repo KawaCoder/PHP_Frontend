@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="/public/css/main.css">
 </head>
 <body>
-<?php require_once __DIR__ . '/../../../header.php'; ?>
+<?php require_once ROOT . '/header.php'; ?>
 <div class="container">
     <div class="card">
 

@@ -71,7 +71,7 @@ $showForm = isset($_GET['show_form']) && $_GET['show_form'] === '1';
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/../../../header.php'; ?>
+    <?php require_once ROOT . '/header.php'; ?>
     <div class="container-wide">
         <br>
         <div class="button-group margin-bottom-medium" style="justify-content: flex-end;">

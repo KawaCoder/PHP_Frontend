@@ -58,7 +58,7 @@ function countTitulairesActifs(int $idMatch): int
 </head>
 
 <body>
-<?php require_once __DIR__ . '/../../../header.php'; ?>
+<?php require_once ROOT . '/header.php'; ?>
 <div class="container container-wide">
     <div class="card card-wide">
 
