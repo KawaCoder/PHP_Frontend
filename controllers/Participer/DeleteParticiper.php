@@ -26,7 +26,7 @@ class DeleteParticiper
 
         $options = [
             'http' => [
-                'header' => "Content-Type: application/json\r\n",
+                'header' => "Content-Type: application/json\r\n" . "Authorization: Bearer " . ($_SESSION['jwt_token'] ?? '') . "\r\n",
                 'method' => 'POST',
                 'content' => json_encode($this->data),
                 'ignore_errors' => true

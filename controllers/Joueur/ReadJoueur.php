@@ -15,7 +15,7 @@ class ReadJoueur
 
         $options = [
             'http' => [
-                'header' => "Content-Type: application/json\r\n",
+                'header' => "Content-Type: application/json\r\n" . "Authorization: Bearer " . ($_SESSION['jwt_token'] ?? '') . "\r\n",
                 'method' => 'GET',
                 'ignore_errors' => true
             ],
