@@ -3,12 +3,10 @@ namespace App\Views\Auth;
 
 require_once __DIR__ . '/../../config/bootstrap.php';
 
-use App\Controllers\Auth\LoginController;
-
 $error = null;
 
 if (isLoggedIn()) {
-    header('Location: /index.php');
+    header('Location: /views/Joueur/JoueurView.php');
     exit();
 }
 
@@ -16,12 +14,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    $controller = new LoginController($username, $password);
-    if ($controller->execute()) {
-        header('Location: /index.php');
-        exit();
+    // Appel direct à l'API d'authentification sans passer par un contrôleur local
+    $url = API_AUTH_URL . '/login';
+
+    $data = [
+        'username' => $username,
+        'password' => $password
+    ];
+
+    $options = [
+        'http' => [
+            'header' => "Content-Type: application/json\r\n",
+            'method' => 'POST',
+            'content' => json_encode($data),
+            'ignore_errors' => true
+        ],
+    ];
+
+    $context = stream_context_create($options);
+    $result = @file_get_contents($url, false, $context);
+
+    if ($result !== false) {
+        $response = json_decode($result, true);
+        if (isset($response['token'])) {
+            $_SESSION['admin_logged_in'] = true;
+            $_SESSION['jwt_token'] = $response['token'];
+            $_SESSION['admin_username'] = $username;
+
+            header('Location: /views/Joueur/JoueurView.php');
+            exit();
+        } else {
+            $error = "Identifiants invalides.";
+        }
     } else {
-        $error = "Identifiants invalides.";
+        $error = "Erreur de connexion à l'API d'authentification.";
     }
 }
 ?>
