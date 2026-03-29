@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Si l'URL est vide (racine du site), rediriger vers la vue Joueur
+RewriteRule ^$ views/Joueur/JoueurView.php [L,R=301]
+
+# Si le fichier/dossier physique n'existe pas, on ne fait rien de spécial ici (pas de routeur unique sur le front)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# On peut éventuellement rediriger vers une page 404

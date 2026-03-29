@@ -10,34 +10,38 @@ class Autoloader
 
     public static function autoload($class)
     {
-
-        // Vérifie que la classe appartient bien au namespace App\
-        $prefix = __NAMESPACE__ . '\\';
+        // 1. Gérer le prefixe "App\"
+        $prefix = 'App\\';
+        $classRelative = $class;
 
         if (strpos($class, $prefix) === 0) {
-            // Retirer App\ du namespace
-            $class = substr($class, strlen($prefix));
+            $classRelative = substr($class, strlen($prefix));
         }
 
-        // Remplacer \ par / pour le chemin du fichier
-        $path = str_replace('\\', '/', $class);
+        // 2. Transformer le namespace en chemin de fichier
+        $path = str_replace('\\', '/', $classRelative);
+        
+        // __DIR__ est le dossier racine (/www/)
         $file = __DIR__ . '/' . $path . '.php';
 
         if (file_exists($file)) {
-            require $file;
+            require_once $file;
             return;
         }
 
-        // TENTATIVE DE CORRECTION DE CASSE (Gestion des dossiers minuscules : Config -> config)
-        // Si le fichier n'est pas trouvé, on essaie de mettre le premier dossier en minuscule
+        // 3. Fallback : Essayer avec le premier dossier en minuscule (ex: Config -> config)
         $parts = explode('/', $path);
         if (count($parts) > 0) {
             $parts[0] = strtolower($parts[0]);
             $fileLower = __DIR__ . '/' . implode('/', $parts) . '.php';
             if (file_exists($fileLower)) {
-                require $fileLower;
+                require_once $fileLower;
+                return;
             }
         }
+        
+        // 4. Debugging : si on arrive ici, la classe n'est pas trouvée
+        // Ne pas faire de die() ou echo ici pour ne pas casser l'autoloading d'autres librairies éventuelles
     }
 }
 ?>
