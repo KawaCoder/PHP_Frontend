@@ -17,7 +17,7 @@ class DeleteJoueur
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/delete_joueur'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/delete_joueur'; // À adapter selon ton URL backend
 
         $data = ['id' => $this->id];
 

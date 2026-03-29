@@ -13,7 +13,7 @@ class ReadParticiperByIdJoueur {
     }   
 
     public function execute() {
-        $url = 'http://localhost:8000/api/read_participer_by_id_joueur?id_joueur=' . urlencode($this->id_joueur);
+        $url = API_BACKEND_URL . '/read_participer_by_id_joueur?id_joueur=' . urlencode($this->id_joueur);
 
         $options = [
             'http' => [

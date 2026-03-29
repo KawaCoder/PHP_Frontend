@@ -11,7 +11,7 @@ class ReadJoueur
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/read_joueur'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/read_joueur'; // À adapter selon ton URL backend
 
         $options = [
             'http' => [

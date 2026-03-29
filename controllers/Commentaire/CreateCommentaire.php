@@ -26,7 +26,7 @@ class CreateCommentaire
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/create_commentaire';
+        $url = API_BACKEND_URL . '/create_commentaire';
 
         $options = [
             'http' => [

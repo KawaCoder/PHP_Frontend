@@ -32,7 +32,7 @@ class UpdateMatch {
     }
 
     public function execute() {
-        $url = 'http://localhost:8000/api/update_match'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/update_match'; // À adapter selon ton URL backend
 
         $options = [
             'http' => [

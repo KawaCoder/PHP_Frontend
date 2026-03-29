@@ -16,7 +16,7 @@ class GetCommentairesByJoueur
 
     public function execute()
     {
-        $url = 'http://localhost:8000/api/get_commentaires_by_joueur?id_joueur=' . urlencode($this->id_joueur);
+        $url = API_BACKEND_URL . '/get_commentaires_by_joueur?id_joueur=' . urlencode($this->id_joueur);
 
         $options = [
             'http' => [

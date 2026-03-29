@@ -22,7 +22,7 @@ class CreateParticiper {
     }   
 
     public function execute() {
-        $url = 'http://localhost:8000/api/create_participer';
+        $url = API_BACKEND_URL . '/create_participer';
 
         $options = [
             'http' => [

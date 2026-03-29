@@ -13,7 +13,7 @@ class DeleteMatch {
     }
 
     public function execute() {
-        $url = 'http://localhost:8000/api/delete_match'; // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/delete_match'; // À adapter selon ton URL backend
 
         $data = ['id_match' => $this->id_match]; // Sending id_match to match property names
 

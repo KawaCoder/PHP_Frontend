@@ -13,7 +13,7 @@ class GetMatchById {
     }
 
     public function execute() {
-        $url = 'http://localhost:8000/api/get_match_by_id?id_match=' . urlencode($this->id_match); // À adapter selon ton URL backend
+        $url = API_BACKEND_URL . '/get_match_by_id?id_match=' . urlencode($this->id_match); // À adapter selon ton URL backend
 
         $options = [
             'http' => [
